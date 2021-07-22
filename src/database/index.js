@@ -10,10 +10,10 @@ class DataBase {
             useNewUrlParser: true,
             useUnifiedTopology: true
         }).then(() => {
-            console.log("conexão com Mongo sucesso!");
+            console.log("conexão com Mongodb, sucesso!");
 
         }).catch((erro) => {
-            console.log("erro: Deu ruim." + erro);
+            console.log("erro: Não conseguiu acessar o Mongo db." + erro);
         });
     }
 }
