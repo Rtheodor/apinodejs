@@ -1,18 +1,25 @@
 import mongoose from 'mongoose';
 
 const User = new mongoose.Schema({
-  name:{
-      type:String,
-      required: true
-    },
-    email:{
+    
+    emailTutor:{
         type:String,
         required:true
     },
-    password:{
+    namePet:{
+      type:String,
+      required: true
+    },
+    rga:{
+        type:Number
+    },
+    raca:{
+        type:String
+    }
+    /*password:{
         type:String,
         require: true
-    }
+    }*/
 },{
     timestamps: true,
 });

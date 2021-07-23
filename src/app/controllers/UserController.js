@@ -3,41 +3,52 @@ import User from '../models/User';
 
 class UserController {
     async store(req, res) {
-        const emailExiste = await User.findOne({ email: req.body.email });
+        const emailExiste = await User.findOne({ emailTutor: req.body.emailTutor });
+        const rgaExiste = await User.findOne({rgaExiste:req.body.rgaExiste});
         if (emailExiste) {
             return res.status(400).json({
                 error: true,
                 code: 102,
-                message: "Error: email já cadastrado!"
+                message: "Error: email do Tutor já cadastrado!"
             });
         }
-        if(!req.body.name || typeof req.body.name == undefined || req.body.name == null){
+        if(!req.body.namePet || typeof req.body.namePet == undefined || req.body.namePet == null){
             return res.status(400).json({
                 error: true,
                 code: 103,
                 message: "Error: Por favor, preencher o campo nome do Pet!"
             });
         }
-        if(!req.body.email || typeof req.body.email == undefined || req.body.email == null){
+        if(!req.body.emailTutor || typeof req.body.emailTutor == undefined || req.body.emailTutor == null){
             return res.status(400).json({
                 error: true,
                 code: 104,
                 message: "Error: Por favor, preencher o campo email do tutor!"
             });
         }
-        if(!req.body.password || typeof req.body.password == undefined || req.body.password == null){
+
+        
+        if(rgaExiste){
+            return res.status(400).json({
+                errot:true,
+                code:105,
+                message:"Erro: RGA já cadastrado!"
+            });
+        }
+
+        /*if(!req.body.password || typeof req.body.password == undefined || req.body.password == null){
             return res.status(400).json({
                 error: true,
                 code: 105,
                 message: "Error: Por favor, preencher o campo senha!"
             });
-        }
+        }*/
 
         const user = await User.create(req.body, (err) => {
             if (err) return res.status(400).json({
                 error: true,
                 code: 101,
-                message: "Error: Não foi cadastrados com sucesso"
+                message: "Error: O Pet Não foi cadastrados com sucesso"
             });
 
             return res.status(200).json({
