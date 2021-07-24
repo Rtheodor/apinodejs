@@ -3,8 +3,8 @@ import User from '../models/User';
 
 class UserController {
     async store(req, res) {
+        
         const emailExiste = await User.findOne({ emailTutor: req.body.emailTutor });
-        const rgaExiste = await User.findOne({rgaExiste:req.body.rgaExiste});
         if (emailExiste) {
             return res.status(400).json({
                 error: true,
@@ -28,11 +28,19 @@ class UserController {
         }
 
         
+        const rgaExiste = await User.findOne({rgaExiste:req.body.rgaExiste});
         if(rgaExiste){
             return res.status(400).json({
-                errot:true,
+                error:true,
                 code:105,
                 message:"Erro: RGA já cadastrado!"
+            });
+        }
+        if(!req.body.rgaExiste || typeof req.body.rgaExiste == String || req.body.rgaExiste == null){
+            return res.status(400).json({
+                error:true,
+                code:106,
+                message:"Erro: Apenas numeros no campo rga!"
             });
         }
 
