@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+//import bcrypt from 'bcrypt'; caso precisar já está no esquema.
 import User from '../models/User';
 
 class UserController {
@@ -34,6 +35,8 @@ class UserController {
                 message: "Error: email do Tutor já cadastrado!"
             });
         }
+       /*var dados = req.body;
+       dados.password = await bcrypt.hash(dados.password, 7);*/
 
         const user = await User.create(req.body, (err) => {
             if (err) return res.status(400).json({
