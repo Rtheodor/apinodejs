@@ -15,6 +15,10 @@ const User = new mongoose.Schema({
     },
     raca:{
         type:String
+    },
+    sexPet:{
+        type:String,
+        required: true
     }
     /*password:{
         type:String,

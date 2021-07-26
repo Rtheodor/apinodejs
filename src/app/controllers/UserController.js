@@ -1,3 +1,4 @@
+import { restart } from 'nodemon';
 import User from '../models/User';
 
 
@@ -28,7 +29,7 @@ class UserController {
         }
 
         
-        const rgaExiste = await User.findOne({rgaExiste:req.body.rgaExiste});
+        /*const rgaExiste = await User.findOne({rgaExiste:req.body.rgaExiste});
         if(rgaExiste){
             return res.status(400).json({
                 error:true,
@@ -36,14 +37,16 @@ class UserController {
                 message:"Erro: RGA já cadastrado!"
             });
         }
-        if(!req.body.rgaExiste || typeof req.body.rgaExiste == String || req.body.rgaExiste == null){
+        if(!req.body.rgaExiste || typeof req.body.rgaExiste == undefined || req.body.rgaExiste == null){
             return res.status(400).json({
                 error:true,
                 code:106,
-                message:"Erro: Apenas numeros no campo rga!"
+                message:"Erro:Por favor preencher o campo rga!"
             });
-        }
+        }*/
 
+
+        
         /*if(!req.body.password || typeof req.body.password == undefined || req.body.password == null){
             return res.status(400).json({
                 error: true,
@@ -65,6 +68,8 @@ class UserController {
                 dados: user
             })
         });
+
+        
 
     }
 }
