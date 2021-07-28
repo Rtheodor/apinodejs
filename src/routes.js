@@ -7,11 +7,12 @@ import User from './app/models/User';
 import UserController from './app/controllers/UserController';
 import loginController from './app/controllers/loginController';
 
+import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
 routes.post('/users', UserController.store);
-routes.delete('/users/:id', UserController.delete);
+routes.delete('/users/:id',authMiddleware, UserController.delete);
 routes.post('/login', loginController.store);
 
 export default routes;

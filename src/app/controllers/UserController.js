@@ -122,7 +122,7 @@ class UserController {
 
             return res.json({
                 error:false,
-                message:"Usuáriio apagado com sucesso!"
+                message:"Usuário apagado com sucesso!"
             });        
         }
 }
