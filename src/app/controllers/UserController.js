@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
-//import bcrypt from 'bcrypt'; caso precisar já está no esquema.
+import bcrypt from 'bcryptjs';
 import User from '../models/User';
+import { string } from 'yup/lib/locale';
 
 class UserController {
     async store(req, res) {
@@ -10,10 +11,11 @@ class UserController {
             emailTutor: Yup.string()
             .email()
             .required(),
-            namePet: Yup.string()
-            .required(),
-            rga: Yup.number()
-            .required(),
+            password: Yup.string()
+            .required()
+            .min(6),
+            namePet: Yup.string(),
+            rga: Yup.number(),
             raca: Yup.string(),
             sexPet: Yup.string()
              
@@ -23,7 +25,7 @@ class UserController {
             return res.status(400).json({
                 error: true,
                 code: 103,
-                message: "Error: Dados invalidos!"
+                message: "Error: Campos Email do Tutor e Senha são obrigatorios! (Senha minima de 6 digitos)"
             });
         }
 
@@ -35,10 +37,10 @@ class UserController {
                 message: "Error: email do Tutor já cadastrado!"
             });
         }
-       /*var dados = req.body;
-       dados.password = await bcrypt.hash(dados.password, 7);*/
+       var dados = req.body;
+       dados.password = await bcrypt.hash(dados.password, 7);
 
-        const user = await User.create(req.body, (err) => {
+        const user = await User.create(dados, req.body, (err) => {
             if (err) return res.status(400).json({
                 error: true,
                 code: 101,

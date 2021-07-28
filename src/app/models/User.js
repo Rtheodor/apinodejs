@@ -6,9 +6,12 @@ const User = new mongoose.Schema({
         type:String,
         required:true
     },
+    password:{
+       type:String,
+       required: true
+    },
     namePet:{
       type:String,
-      required: true
     },
     rga:{
         type:Number
@@ -20,10 +23,7 @@ const User = new mongoose.Schema({
         type:String,
         required: true
     }
-    /*password:{
-        type:String,
-        require: true
-    }*/
+    
 },{
     timestamps: true,
 });
