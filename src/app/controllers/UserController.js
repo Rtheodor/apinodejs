@@ -5,8 +5,10 @@ import { string } from 'yup/lib/locale';
 
 class UserController {
     async index(req,res){
-        await User.find({}).select("-password").then((users)=>{
-            return res.json({
+        const {page = 1} = req.query.page;
+        const  {limit = 40} = req.query;
+            await User.paginate({}, {select: 'emailTutor namePet rga', page, limit}).then((users)=>{
+        return res.json({
                 erro:false,
                 users: users
             })
@@ -14,7 +16,7 @@ class UserController {
             return res.status(400).json({
                 erro:true,
                 code:106,
-                message:"Erroo: Não foi possivel executar a solicitação!"
+                message:"Erro: Não foi possivel executar a solicitação!"
             })
         }) 
     }
@@ -70,51 +72,7 @@ class UserController {
             })
         });
 
-        //abaixo esta a forma de validação sem o yup
-
-        /*if(!req.body.namePet || typeof req.body.namePet == undefined || req.body.namePet == null){
-            return res.status(400).json({
-                error: true,
-                code: 103,
-                message: "Error: Por favor, preencher o campo nome do Pet!"
-            });
-        }
-        if(!req.body.emailTutor || typeof req.body.emailTutor == undefined || req.body.emailTutor == null){
-            return res.status(400).json({
-                error: true,
-                code: 104,
-                message: "Error: Por favor, preencher o campo email do tutor!"
-            });
-        }*/
-
-        
-        /*const rgaExiste = await User.findOne({rgaExiste:req.body.rgaExiste});
-        if(rgaExiste){
-            return res.status(400).json({
-                error:true,
-                code:105,
-                message:"Erro: RGA já cadastrado!"
-            });
-        }
-        if(!req.body.rgaExiste || typeof req.body.rgaExiste == undefined || req.body.rgaExiste == null){
-            return res.status(400).json({
-                error:true,
-                code:106,
-                message:"Erro:Por favor preencher o campo rga!"
-            });
-        }
-
-
-        
-        /*if(!req.body.password || typeof req.body.password == undefined || req.body.password == null){
-            return res.status(400).json({
-                error: true,
-                code: 105,
-                message: "Error: Por favor, preencher o campo senha!"
-            });
-        }*/
-
-        
+              
         };
         async delete(req,res){
 
