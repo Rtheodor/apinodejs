@@ -88,6 +88,73 @@ class UserController {
 
 
     };
+    
+    async update(req,res){
+        const schema = Yup.object().shape({
+            _id: Yup.string()
+            .required(),
+            emailTutor: Yup.string()
+            .email(),
+            password: Yup.string()
+            .min(6),
+            namePet: Yup.string(),
+            rga: Yup.number(),
+            raca: Yup.string(),
+            sexPet: Yup.string()
+        });
+
+        if(!(await schema.isValid(req.body))){
+            return res.status(400).json({
+                error: true,
+                code:108,
+                message: "Erro: Dados do formulario invalido"
+            });
+        };
+
+        const { _id, emailTutor } = req.body;
+
+        const usuarioExiste = await User.findOne({_id});
+
+        if(!usuarioExiste){
+            return res.status(400).json({
+                error:true,
+                code:109,
+                message: "Erro: Usuário nao encontrado!"
+            })
+        }
+
+        if(emailTutor != usuarioExiste.emailTutor){
+            const emailExiste = await User.findOne({emailTutor})
+            if (emailExiste){
+                return res.status(400).json({
+                    error:true,
+                    code:110,
+                    message: "Erro: este e-mail ja esta cadastrado!"
+                });
+            };
+        };
+        var dados = req.body;
+        if(dados.password){
+            dados.password = await bcrypt.hash(dados.password, 8)
+        };
+
+        await User.updateOne({_id: dados._id}, dados, (err)=>{
+            if(err) return res.status(400).json({
+                error: true,
+                code:111,
+                message: "Erro: Usuário nao foi editado com sucesso! "
+            });
+            
+            return res.json({
+                error:false,
+                message: "Usuário editado com sucesso e muito frio."
+            })
+        });
+        
+        
+
+    }
+
     async delete(req, res) {
 
         const usuarioExiste = await User.findOne({ _id: req.params.id });
