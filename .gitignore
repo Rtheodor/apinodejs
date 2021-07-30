@@ -1,5 +1,5 @@
-#
-.auth.js
+#Ignorar
+.config/
 
 #nodemodules
 node_modules/
