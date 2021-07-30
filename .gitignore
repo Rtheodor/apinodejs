@@ -1,4 +1,5 @@
-#nao
-*.node_modules
-*.auth.js
-*.conexao.js
+#
+/config
+
+#nodemodules
+/node_modules
