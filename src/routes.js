@@ -10,7 +10,7 @@ import loginController from './app/controllers/loginController';
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
-
+routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 routes.delete('/users/:id',authMiddleware, UserController.delete);
 routes.post('/login', loginController.store);

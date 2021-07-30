@@ -4,6 +4,22 @@ import User from '../models/User';
 import { string } from 'yup/lib/locale';
 
 class UserController {
+    async index(req,res){
+        await User.find({}).select("-password").then((users)=>{
+            return res.json({
+                erro:false,
+                users: users
+            })
+        }).catch((erro)=>{
+            return res.status(400).json({
+                erro:true,
+                code:106,
+                message:"Erro: Não foi possivel executar a solicitação!"
+            })
+        }) 
+    }
+
+
     async store(req, res) {
         
         //validando com Yup
@@ -19,7 +35,7 @@ class UserController {
             raca: Yup.string(),
             sexPet: Yup.string()
              
-        });
+        }); 
 
         if(!(await schema.isValid(req.body))){
             return res.status(400).json({
