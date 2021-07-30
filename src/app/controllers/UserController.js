@@ -14,7 +14,7 @@ class UserController {
             return res.status(400).json({
                 erro:true,
                 code:106,
-                message:"Erro: Não foi possivel executar a solicitação!"
+                message:"Erroo: Não foi possivel executar a solicitação!"
             })
         }) 
     }
