@@ -3,3 +3,8 @@ config/
 
 #nodemodules
 node_modules/
+
+#diretorio tmp
+tmp/
+
+--> comando git rm --cached FILENAME serve para ignorar.
