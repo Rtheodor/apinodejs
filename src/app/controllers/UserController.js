@@ -1,9 +1,10 @@
 import * as Yup from 'yup';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
-import { string } from 'yup/lib/locale';
+
 
 class UserController {
+
     async index(req, res) {
         const { page = 1 } = req.query.page;
         const { limit = 40 } = req.query;
@@ -50,7 +51,7 @@ class UserController {
             rga: Yup.number(),
             raca: Yup.string(),
             sexPet: Yup.string()
-
+            
         });
 
         if (!(await schema.isValid(req.body))) {
@@ -72,7 +73,7 @@ class UserController {
         var dados = req.body;
         dados.password = await bcrypt.hash(dados.password, 7);
 
-        const user = await User.create(dados, req.body, (err) => {
+        const user = await User.create(dados, (err) => {
             if (err) return res.status(400).json({
                 error: true,
                 code: 101,
@@ -133,6 +134,7 @@ class UserController {
                 });
             };
         };
+
         var dados = req.body;
         if(dados.password){
             dados.password = await bcrypt.hash(dados.password, 8)
@@ -147,7 +149,7 @@ class UserController {
             
             return res.json({
                 error:false,
-                message: "Usuário editado com sucesso e muito frio."
+                message: "Usuário editado com sucesso."
             })
         });
         

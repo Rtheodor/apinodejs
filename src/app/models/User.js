@@ -27,11 +27,11 @@ const User = new mongoose.Schema({
     },
     originalName:{
         type: String,
-        required: true
+                
     },
     fileName:{
         type:String,
-        required: true
+          
     }
     
 },{

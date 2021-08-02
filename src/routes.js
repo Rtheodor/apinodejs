@@ -1,8 +1,6 @@
 //const {Router} = require('express');
 
 import { Router } from 'express';
-import mongoose from 'mongoose';
-import User from './app/models/User';
 import multer from 'multer';
 import multerUpImgUsers from './app/middlewares/uploadImgUser';
 

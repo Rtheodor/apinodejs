@@ -17,6 +17,7 @@ class PerfilController{
             });
         });
     };
+
     async update(req,res){
         const schema = Yup.object().shape({
             emailTutor: Yup.string()
@@ -27,6 +28,7 @@ class PerfilController{
             rga: Yup.number(),
             raca: Yup.string(),
             sexPet: Yup.string()
+            
         });
 
         if(!(await schema.isValid(req.body))){
