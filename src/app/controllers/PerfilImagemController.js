@@ -3,14 +3,15 @@ import fs from 'fs';
 
 class PerfilImagemController{
     async update(req, res){
-        console.log(req.file);
+       
 
         const dadosImagem = {
             originalName: req.file.originalname,
             fileName: req.file.filename 
         }
         await User.findOne({_id: req.userId}, '_id fileName').then((user)=>{
-            console.log(user);
+            
+            req.dadosImgUser = user.fileName;
         }).catch((err)=>{
             return res.status(400).json({
                 error:true,
@@ -26,10 +27,21 @@ class PerfilImagemController{
             })
         })
 
-        console.log(dadosImagem)
+        const ImgAntiga = req.file.destination + "/" + req.dadosImgUser;
+        
+
+        fs.access(ImgAntiga, (err)=>{
+            if(!err){
+                fs.unlink(ImgAntiga, err =>{
+
+                })
+            }
+        })
+
+      
         return res.json({
             error: false,
-            message: "Upload img user"
+            message: "Imagem do perfil editada com sucesso!"
         })
     }
 }
