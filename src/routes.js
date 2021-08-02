@@ -24,7 +24,7 @@ routes.delete('/users/:id',authMiddleware, UserController.delete);
 
 routes.get('/perfil', authMiddleware, PerfilController.show);
 routes.put('/perfil', authMiddleware, PerfilController.update);
-routes.put('/perfil-img',authMiddleware, uploadImgUser.single('file'), PerfilImagemController.update);
+routes.put('/perfil-img', authMiddleware, uploadImgUser.single('file'), PerfilImagemController.update);
 
 routes.post('/login', loginController.store);
 

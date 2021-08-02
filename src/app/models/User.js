@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
+import { string } from 'yup';
 
 const User = new mongoose.Schema({
     
@@ -21,6 +22,14 @@ const User = new mongoose.Schema({
         type:String
     },
     sexPet:{
+        type:String,
+        required: true
+    },
+    originalName:{
+        type: String,
+        required: true
+    },
+    fileName:{
         type:String,
         required: true
     }

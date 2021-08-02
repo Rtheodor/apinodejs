@@ -22,7 +22,7 @@ class UserController {
     }
 
     async show(req, res) {
-        User.findOne({ _id: req.params.id }, '_id emailTutor namePet rga raca sexPet createdAt updatedAt').then((user) => {
+        User.findOne({ _id: req.params.id }, '_id emailTutor namePet rga raca sexPet createdAt  updatedAt originalName fileName ').then((user) => {
             return res.json({
                 error: false,
                 user:user
@@ -100,7 +100,7 @@ class UserController {
             namePet: Yup.string(),
             rga: Yup.number(),
             raca: Yup.string(),
-            sexPet: Yup.string()
+            sexPet: Yup.string()            
         });
 
         if(!(await schema.isValid(req.body))){
