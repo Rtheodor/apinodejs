@@ -1,13 +1,16 @@
 import * as Yup from 'yup';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
+import config from '../../config/config';
 
 class PerfilController{
     async show(req, res){
-        User.findOne({_id: req.userId }, '_id emailTutor namePet  createdAt updatedAt').then((user) => {
+        User.findOne({_id: req.userId }, '_id emailTutor namePet  createdAt updatedAt fileName').then((user) => {
+            var url = config.url + "/files/users/" + user.fileName;
             return res.json({
                 error: false,
-                user: user
+                user: user,
+                url:url
             });
         }).catch((erro) => {
             return res.status(400).json({

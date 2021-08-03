@@ -3,6 +3,15 @@ import fs from 'fs';
 
 class PerfilImagemController{
     async update(req, res){
+
+        if(!req.file){
+            return res.status(400).json({
+                error:true,
+                code:129,
+                message:"Erro: Selecione uma imagem válida JPEG ou PNG!"
+            });
+
+        };
        
 
         const dadosImagem = {
